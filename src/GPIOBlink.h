@@ -14,9 +14,9 @@ IO_STATE_OFF,
 IO_STATE_IDLE
 }IO_State;
 
-class IOBlink : public TimeOut {
+class GPIOBlink : public TimeOut {
 public:
-	IOBlink(short _IO = 2, bool Lever = LOW);
+	GPIOBlink(short _IO = 2, bool Lever = LOW);
 
 	void Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff);
 	void Toggle(uint16_t Delay)
