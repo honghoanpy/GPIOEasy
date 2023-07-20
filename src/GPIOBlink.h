@@ -17,7 +17,8 @@ IO_STATE_IDLE
 class GPIOBlink : public TimeOut {
 public:
 	GPIOBlink(short _IO = 2, bool Lever = LOW);
-
+	
+	uint8_t State(void);
 	void Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff);
 	void Toggle(uint16_t Delay)
 	{
