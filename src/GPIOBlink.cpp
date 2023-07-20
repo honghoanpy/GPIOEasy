@@ -12,7 +12,7 @@ GPIOBlink::GPIOBlink(short _IO, bool Lever)
   Disable(); // Disable Timeout
 }
 
-uint8_t IOBlink::State(void)
+uint8_t GPIOBlink::State(void)
 {
 	return digitalRead(_IOPIN);
 }
