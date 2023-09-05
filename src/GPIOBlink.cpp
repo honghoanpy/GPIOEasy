@@ -17,7 +17,7 @@ uint8_t GPIOBlink::State(void)
 	return digitalRead(_IOPIN);
 }
 
-void GPIOBlink::Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff)
+void GPIOBlink::Blink(uint8_t Count, uint32_t DelayOn, uint32_t DelayOff)
 {
   IoBCount = Count;
   IoBDelayOff = DelayOff;
