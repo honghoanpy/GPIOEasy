@@ -1,14 +1,11 @@
 /*
 #include "GPIOBlink.h"
-
 */
 
 #ifndef	_GPIOBLINK_H
 #define _GPIOBLINK_H
 
 #include <Arduino.h>
-#include <stdint.h>
-#include <stddef.h>
 #include "TimeOut.h"
 
 typedef enum{
@@ -17,23 +14,25 @@ IO_STATE_OFF,
 IO_STATE_IDLE
 }IO_State;
 
-class IOBlink : public TimeOut {
+class GPIOBlink : public TimeOut {
 public:
-	IOBlink(short _IO = 2, bool Lever = LOW);
-	void Blink(uint16_t DelayOn)
+	GPIOBlink(short _IO = 2, bool Lever = LOW);
+	
+	uint8_t State(void);
+	void Blink(uint8_t Count, uint32_t DelayOn, uint32_t DelayOff);
+	void Toggle(uint32_t Delay)
 	{
-		Blink(1,DelayOn,60000);
+		Blink(1,Delay,0);
 	}
-	void Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff);
 	void On(void);
 	void Off(void);
-	void handller(void);
+	void handler(void);
 
 protected:
 	const short _IOPIN;
 	IO_State 	IoBState;
-	uint16_t 	IoBDelayOff;
-	uint16_t 	IoBDelayOn;
+	uint32_t 	IoBDelayOff;
+	uint32_t 	IoBDelayOn;
 	int 		IoBCount;
 	bool 		On_Status;
 	bool 		Off_Status;

@@ -1,75 +1,67 @@
-#include <Arduino.h>
-#include <stddef.h>
-#include <stdint.h>
 #include "GPIOInput.h"
 
-#define IOINPUT_PORT Serial
-#define IOINPUT_DBG(fmt, ...) //IOINPUT_PORT.printf("\r\n>IOINPUT< " fmt, ##__VA_ARGS__)
-
-IOInput::IOInput(short _IO, uint8_t _MODE, uint8_t level)
-    : TimeOut(10), _IOPIN(_IO), _Mode(_MODE), _ActiveLevel(level) {
-  pinMode(_IOPIN, _Mode);
-  _ActiveState=0;
-  _ActiveEvent=0;
-}
-
-void IOInput::handler(void)
+GPIOInput::GPIOInput(short _IO, uint8_t Lever)
+: TimeOut(50)
+, _pin(_IO)
+, _activeLever(Lever)
+, _state(!Lever)
+, _has_changed(0)
 {
-  if(Expired()) {
-    Update(10);
-    if (digitalRead(_IOPIN) == _ActiveLevel)  // Tact event
-    {
-      /* code */
-      _TimeActive+=10;
-      if(_TimeActive>=50) {
-        if(_ActiveState==0) {
-          _ActiveEvent=1;
-          _ActiveState=1;
-        }
-      }
-    }
-    else
-    {
-      /* code */
-      _TimeActive=0;
-      if(_ActiveState==1) {
-        _DeactiveEvent=1;
-        _ActiveState=0;
-      }
-    }
+  pinMode(_pin, INPUT_PULLUP);
+}
+// read input state
+bool GPIOInput::read(void) 
+{
+	if(digitalRead(_pin) != _state)
+  {
+		if(Expired()) {
+			Update(50);
+			_state = !_state;
+			_has_changed = true;
+		}
   }
+  return _state;
 }
 
-bool IOInput::GetState(void)
+bool GPIOInput::hasChanged(void)
 {
-  return digitalRead(_IOPIN);
-}
-
-/* ----- Get timeout hold ------ */
-uint8_t IOInput::isActive(void)
-{
-  return _ActiveState;
-}
-
-uint32_t IOInput::GetTimeActive(void)
-{
-  return _TimeActive;
-}
-
-uint8_t IOInput::GetActiveEvent(void)
-{
-	if(_ActiveEvent == 1) {
-    _ActiveEvent = 0;
-		return 1;
+  if (_has_changed == true)
+	{
+		_has_changed = false;
+		return true;
 	}
-	return 0;
+	return false;
 }
 
-uint8_t IOInput::GetDeactiveEvent(void)
+// has the input gone from off -> on
+bool GPIOInput::actived(void)
 {
-	if(_DeactiveEvent == 1) {
-    _DeactiveEvent = 0;
-		return 1;
-	}
-	return 0;
+	if (read() == _activeLever && hasChanged() == true)
+		return true;
+	else
+		return false;
+}
+
+// has the input gone from off -> on
+bool GPIOInput::isActive(void)
+{
+	if (read() == _activeLever)
+		return true;
+	else
+		return false;
+}
+
+// has the input gone from on -> off
+bool GPIOInput::inactived(void)
+{
+	if (read() != _activeLever && hasChanged() == true)
+		return true;
+	else
+		return false;
+}
+
+// get time from last change input state
+uint32_t GPIOInput::timeChange(void)
+{
+	return Passed();
 }

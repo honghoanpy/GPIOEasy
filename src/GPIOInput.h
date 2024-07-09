@@ -2,45 +2,27 @@
 #include "IOInput.h"
 
 */
-
-#ifndef _GPIOINPUT_H
-#define _GPIOINPUT_H
+#ifndef _INPUT_H
+#define _INPUT_H
 /* Include */
 #include <Arduino.h>
-#include <stdint.h>
-#include <stddef.h>
 #include "TimeOut.h"
 
-#ifndef RISING
-#define RISING	2
-#endif
-#ifndef FALLING
-#define FALLING	3
-#endif
-
-//typedef void (*callbackFunc) (void);	
-//using callbackFunc = void (*)(const char*); //type aliasing
-//C++ version of: typedef void (*callbackFunc)(const char*)
-
-class IOInput : public TimeOut {
+class GPIOInput : public TimeOut {
   public:
-	IOInput(short _IO = 0, uint8_t _MODE = INPUT, uint8_t level = HIGH);
-	uint8_t GetActiveEvent(void);
-	uint8_t GetDeactiveEvent(void);
-	uint8_t isActive(void);
-	bool GetState(void);
-	uint32_t GetTimeActive(void);
-	void handler(void);
+		GPIOInput(short _IO = 0, uint8_t activeLever = HIGH);
+		bool read(void);
+		bool actived(void);
+		bool isActive(void);
+		bool inactived(void);
+		bool hasChanged(void);
+		uint32_t timeChange(void);
 
   private:
-	uint8_t _ActiveState;
-	uint8_t _ActiveLevel;
-	uint8_t _ActiveEvent;
-	uint8_t _DeactiveEvent;
-	uint32_t _TimeActive;
-	const short _IOPIN;
-	uint8_t _Mode;
+		uint8_t 	_pin;
+		bool 			_state;
+		bool 			_activeLever;
+		bool 			_has_changed;
 };
-
 
 #endif

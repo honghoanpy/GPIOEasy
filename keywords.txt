@@ -18,7 +18,6 @@ Disable	KEYWORD2
 Expired	KEYWORD2
 Remain	KEYWORD2
 
-
 #######################################
 # Constants (LITERAL1)
 #######################################
