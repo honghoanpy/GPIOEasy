@@ -1,6 +1,9 @@
+#include <Arduino.h>
+#include <stddef.h>
+#include <stdint.h>
 #include "GPIOBlink.h"
 
-GPIOBlink::GPIOBlink(short _IO, bool Lever)
+IOBlink::IOBlink(short _IO, bool Lever)
   : _IOPIN(_IO), On_Status(Lever), TimeOut(60000)
 {
   pinMode(_IOPIN, OUTPUT);
@@ -12,12 +15,7 @@ GPIOBlink::GPIOBlink(short _IO, bool Lever)
   Disable(); // Disable Timeout
 }
 
-uint8_t GPIOBlink::State(void)
-{
-	return digitalRead(_IOPIN);
-}
-
-void GPIOBlink::Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff)
+void IOBlink::Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff)
 {
   IoBCount = Count;
   IoBDelayOff = DelayOff;
@@ -27,19 +25,19 @@ void GPIOBlink::Blink(uint8_t Count, uint16_t DelayOn, uint16_t DelayOff)
   digitalWrite(_IOPIN, On_Status);  // Turn on GPIO
 }
 
-void GPIOBlink::On(void)
+void IOBlink::On(void)
 {
 	IoBCount = 0;
 	digitalWrite(_IOPIN, On_Status);
 }
 
-void GPIOBlink::Off(void)
+void IOBlink::Off(void)
 {
 	IoBCount = 0;
 	digitalWrite(_IOPIN, Off_Status);
 }
 
-void GPIOBlink::handler(void)
+void IOBlink::handller(void)
 {
     switch (IoBState)
     {

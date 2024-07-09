@@ -2,26 +2,25 @@
 #include <GPIOEasy.h>
 
 /*Set pin numbers*/
+const int LED_BUILTIN = 2;
 const int BUTTON = 0;
 
-GPIOInput Button(BUTTON,LOW);
+IOBlink Led(LED_BUILTIN,HIGH);
+
+IOInput Button(BUTTON,INPUT,LOW);
 
 void setup() {
-  Serial.begin(115200);
+	/*IOBlink.Blink(Count, TimeOn, TimeOff)*/
+	Led.Blink(2,1000,4000);
 }
 
 void loop() {
 	/* GPIO handler */
-	if(Button.actived()) {
-		Serial.println("Button is Actived !");
-	}
+	Led.handller();
+	Button.handller();
 
-	if(Button.inactived()) {
-		Serial.println("Button is Inactived !");
+	if(Button.GetTimeActive() >= 3000) {
+		Led.Blink(2,100,1000);
 	}
-
-	if(Button.timeChange() > 3000 && Button.isActive()) {
-		Serial.println("Button is actived more than 3 seconds!");
-		delay(1000);
-	}
+	
 }

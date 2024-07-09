@@ -43,13 +43,15 @@ uint8_t TimeOut::Expired(void){
 }
 
 /**
- * @brief Get time from last update to now
+ * @brief Get value timeout
  * @param None
  * @retval Timer value
  */
-uint32_t TimeOut::Passed(void) {
+uint32_t TimeOut::Remain(void) {
 	if(_Status==TO_ENABLE) {
-		return millis()-_timeStart;
+		if((millis()-_timeStart) < _timeWait) {
+			return _timeWait - (millis()-_timeStart);
+		}
 	}
 	return 0;
 }
@@ -93,9 +95,11 @@ uint8_t usTimeOut::Expired(void){
  * @param None
  * @retval Timer value
  */
-uint32_t usTimeOut::Passed(void) {
+uint32_t usTimeOut::Remain(void) {
 	if(_Status==TO_ENABLE) {
-		return micros()-_timeStart;
+		if((micros()-_timeStart) < _timeWait) {
+			return _timeWait - (micros()-_timeStart);
+		}
 	}
 	return 0;
 }

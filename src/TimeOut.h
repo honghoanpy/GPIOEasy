@@ -23,7 +23,7 @@ class TimeOut
 	/*Check timeout*/
 	uint8_t Expired(void);
 	/*Get timecount from time start*/
-	uint32_t Passed(void);
+	uint32_t Remain(void);
 	
 	private:
 	/*Start timestamp*/
@@ -47,8 +47,8 @@ class usTimeOut
 	void Disable(void);
 	/*Check timeout*/
 	uint8_t Expired(void);
-	/*Get time from timer restart*/
-	uint32_t Passed(void);
+	/*Get timecount from time start*/
+	uint32_t Remain(void);
 	
 	private:
 	/*Start timestamp*/
