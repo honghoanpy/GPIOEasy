@@ -26,15 +26,17 @@ public:
 	}
 	void On(void);
 	void Off(void);
+	bool isChange(void);
 	void handler(void);
 
 protected:
-	const short _IOPIN;
+	const short _IO_PIN;
+	const bool 	_ON_LEVER;
 	IO_State 	IoBState;
 	uint32_t 	IoBDelayOff;
 	uint32_t 	IoBDelayOn;
 	int 		IoBCount;
-	bool 		On_Status;
-	bool 		Off_Status;
+	bool 		isChangeFlag;
+	// bool 		Off_Status;
 };
 #endif

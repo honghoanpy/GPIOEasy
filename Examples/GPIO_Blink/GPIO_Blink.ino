@@ -4,7 +4,7 @@
 /*Set pin numbers*/
 const int LED_BUILTIN = 2;
 
-GPIOBlink Led(LED_BUILTIN,HIGH);
+IOBlink Led(LED_BUILTIN,HIGH);
 
 void setup() {
 	/*IOBlink.Blink(Count, TimeOn, TimeOff)*/
