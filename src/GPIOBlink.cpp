@@ -6,7 +6,7 @@ GPIOBlink::GPIOBlink(short _IO, bool Lever)
   pinMode(_IO_PIN, OUTPUT);
   digitalWrite(_IO_PIN, !_ON_LEVER); // Turn off GPIO
 
-  isChangeFlag=false;
+  prevLever = State();
   IoBCount=0;
   Disable(); // Disable Timeout
 }
@@ -31,7 +31,6 @@ void GPIOBlink::On(void)
   if(State() == 0) {
     IoBCount = 0;
     digitalWrite(_IO_PIN, _ON_LEVER);
-    isChangeFlag = true;
   }
 }
 
@@ -40,17 +39,16 @@ void GPIOBlink::Off(void)
   if(State() == 1) {
     IoBCount = 0;
     digitalWrite(_IO_PIN, !_ON_LEVER);
-    isChangeFlag = true;
   }
 }
 
 bool GPIOBlink::isChange(void)
 {
-  if(isChangeFlag) {
-    isChangeFlag = false;
+  if(prevLever != State()) {
+    prevLever = State();
     return true;
   }
-  return isChangeFlag;
+  return false;
 }
 
 void GPIOBlink::handler(void)
@@ -73,7 +71,6 @@ void GPIOBlink::handler(void)
         if(IoBDelayOff != 0) Update(IoBDelayOff);
         else Disable();
         digitalWrite(_IO_PIN, !_ON_LEVER);
-        isChangeFlag = true;
       }
       break;
     case IO_STATE_OFF:
@@ -83,7 +80,6 @@ void GPIOBlink::handler(void)
         if(IoBCount > 0) {        
           Update(IoBDelayOn);
           digitalWrite(_IO_PIN, _ON_LEVER);
-          isChangeFlag = true;
         }
         else {
           Disable(); // Disable Timeout

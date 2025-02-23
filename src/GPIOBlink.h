@@ -36,7 +36,6 @@ protected:
 	uint32_t 	IoBDelayOff;
 	uint32_t 	IoBDelayOn;
 	int 		IoBCount;
-	bool 		isChangeFlag;
-	// bool 		Off_Status;
+	bool 		prevLever;   // for detect lever change
 };
 #endif
