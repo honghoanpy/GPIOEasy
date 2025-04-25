@@ -31,6 +31,8 @@ void GPIOBlink::On(void)
   if(State() == 0) {
     IoBCount = 0;
     digitalWrite(_IO_PIN, _ON_LEVER);
+  } else {
+    prevLever = !State();
   }
 }
 
@@ -39,10 +41,12 @@ void GPIOBlink::Off(void)
   if(State() == 1) {
     IoBCount = 0;
     digitalWrite(_IO_PIN, !_ON_LEVER);
+  } else {
+    prevLever = !State();
   }
 }
 
-bool GPIOBlink::isChange(void)
+bool GPIOBlink::hasChange(void)
 {
   if(prevLever != State()) {
     prevLever = State();

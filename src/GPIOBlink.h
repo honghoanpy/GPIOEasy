@@ -26,7 +26,7 @@ public:
 	}
 	void On(void);
 	void Off(void);
-	bool isChange(void);
+	bool hasChange(void);
 	void handler(void);
 
 protected:
