@@ -16,7 +16,7 @@ IO_STATE_IDLE
 
 class GPIOBlink : public TimeOut {
 public:
-	GPIOBlink(short _IO = 2, bool Lever = LOW);
+	GPIOBlink(uint8_t _IO = 2, bool Lever = LOW);
 	
 	uint8_t State(void);
 	void Blink(uint8_t Count, uint32_t DelayOn, uint32_t DelayOff);
@@ -27,14 +27,18 @@ public:
 	void On(void);
 	void Off(void);
 	void handler(void);
+	bool isOn()  { return _state; }
+	bool isOff() { return !_state; }
 
-protected:
-	const short _IOPIN;
-	IO_State 	IoBState;
-	uint32_t 	IoBDelayOff;
-	uint32_t 	IoBDelayOn;
-	int 		IoBCount;
-	bool 		On_Status;
-	bool 		Off_Status;
+private:
+	const uint8_t 	_IOPIN;
+	bool 			_state;
+	IO_State 		IoBState;
+	uint32_t 		IoBDelayOff;
+	uint32_t 		IoBDelayOn;
+	int 			IoBCount;
+	bool 			On_Status;
+	bool 			Off_Status;
+	
 };
 #endif
