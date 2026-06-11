@@ -26,6 +26,7 @@ public:
 	}
 	void On(void);
 	void Off(void);
+	bool hasChange(void);
 	void handler(void);
 	bool isOn()  { return _state; }
 	bool isOff() { return !_state; }

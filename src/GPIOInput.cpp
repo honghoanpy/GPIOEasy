@@ -34,7 +34,7 @@ bool GPIOInput::hasChanged(void)
 }
 
 // has the input gone from off -> on
-bool GPIOInput::actived(void)
+bool GPIOInput::wasActived(void)
 {
 	if (read() == _activeLever && hasChanged() == true)
 		return true;
@@ -52,7 +52,7 @@ bool GPIOInput::isActive(void)
 }
 
 // has the input gone from on -> off
-bool GPIOInput::inactived(void)
+bool GPIOInput::wasDeactivated(void)
 {
 	if (read() != _activeLever && hasChanged() == true)
 		return true;
@@ -61,7 +61,7 @@ bool GPIOInput::inactived(void)
 }
 
 // get time from last change input state
-uint32_t GPIOInput::timeChange(void)
+uint32_t GPIOInput::timeSinceChange(void)
 {
 	return Passed();
 }
