@@ -25,11 +25,11 @@ void GPIOBlink::Blink(uint8_t Count, uint32_t DelayOn, uint32_t DelayOff)
   _state = true;
 }
 
-void GPIOBlink::Toggle(void)
-{
-	if (_state) Off();
-	else On();
-}
+// void GPIOBlink::Toggle(void)
+// {
+// 	if (_state) Off();
+// 	else On();
+// }
 
 void GPIOBlink::On(void)
 {
