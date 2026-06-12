@@ -20,10 +20,11 @@ public:
 	
 	uint8_t State(void);
 	void Blink(uint8_t Count, uint32_t DelayOn, uint32_t DelayOff);
-	void Toggle(uint32_t Delay)
+	void OneShot(uint32_t Delay)
 	{
 		Blink(1,Delay,0);
 	}
+	// void Toggle(void);
 	void On(void);
 	void Off(void);
 	void handler(void);

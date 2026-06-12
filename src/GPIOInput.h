@@ -20,9 +20,9 @@ class GPIOInput : public TimeOut {
 
   private:
 		uint8_t 	_pin;
-		bool 			_state;
-		bool 			_activeLever;
-		bool 			_has_changed;
+		bool 		_state;
+		bool 		_activeLever;
+		bool 		_has_changed;
 };
 
 #endif

@@ -25,9 +25,16 @@ void GPIOBlink::Blink(uint8_t Count, uint32_t DelayOn, uint32_t DelayOff)
   _state = true;
 }
 
+void GPIOBlink::Toggle(void)
+{
+	if (_state) Off();
+	else On();
+}
+
 void GPIOBlink::On(void)
 {
 	IoBCount = 0;
+	Disable();
 	digitalWrite(_IOPIN, On_Status);
 	_state = true;
 }
@@ -35,6 +42,7 @@ void GPIOBlink::On(void)
 void GPIOBlink::Off(void)
 {
 	IoBCount = 0;
+	Disable();
 	digitalWrite(_IOPIN, Off_Status);
 	_state = false;
 }
