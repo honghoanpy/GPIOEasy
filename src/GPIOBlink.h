@@ -27,6 +27,7 @@ public:
 	// void Toggle(void);
 	void On(void);
 	void Off(void);
+	bool hasChange(void);
 	void handler(void);
 	bool isOn()  { return _state; }
 	bool isOff() { return !_state; }
@@ -40,6 +41,6 @@ private:
 	int 			IoBCount;
 	bool 			On_Status;
 	bool 			Off_Status;
-	
+	bool 			_has_changed; // for detect state change
 };
 #endif
